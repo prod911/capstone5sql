@@ -1,0 +1,42 @@
+import requests
+
+# Function to detect SQL Injections
+def detect_sql_injection(url):
+    payload = "' OR '1'='1"
+    response = requests.get(url + payload)
+    
+    if "error in your SQL syntax" in response.text:
+        print("SQL Injection vulnerability detected in:", url)
+
+# Function to detect XSS (Cross-site scripting)
+def detect_xss(url):
+    payload = "<script>alert('XSS')</script>"
+    response = requests.get(url + payload)
+    
+    if "<script>alert('XSS')</script>" in response.text:
+        print("XSS vulnerability detected in:", url)
+
+# Function to detect CSRF (Cross-site request forgery)
+def detect_csrf(url):
+    session = requests.session()
+    response = session.get(url)
+    
+    if "csrf_token" in response.cookies:
+        print("CSRF vulnerability detected in:", url)
+
+# Function to detect clickjacking
+def detect_clickjacking(url):
+    headers = {'X-Frame-Options': 'DENY'}
+    response = requests.get(url, headers=headers)
+    
+    if "X-Frame-Options" not in response.headers:
+        print("Clickjacking vulnerability detected in:", url)
+
+# URL to test vulnerabilities
+target_url = 'https://www.pentestninjas.com/'
+
+# Detect vulnerabilities
+detect_sql_injection(target_url)
+detect_xss(target_url)
+detect_csrf(target_url)
+detect_clickjacking(target_url)
