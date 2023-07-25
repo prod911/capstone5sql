@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo -n "Enter a string: "
+read string
+
+md5_hash=$(echo -n "$string" | md5sum | awk '{print $1}')
+sha1_hash=$(
