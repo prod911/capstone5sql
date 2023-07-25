@@ -1,0 +1,13 @@
+#!/bin/bash
+
+os=$(uname)
+
+if [[ $os == "Darwin" ]]; then
+    echo "Mac OS"
+elif [[ $os == "Linux" ]]; then
+    echo "Linux"
+elif [[ $os == "Windows"* ]]; then
+    echo "Windows"
+else
+    echo "Unknown operating system"
+fi
