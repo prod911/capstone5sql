@@ -1,0 +1,14 @@
+import requests
+
+ip_addresses = ["192.168.0.1", "8.8.8.8", "138.197.68.87"]
+
+for ip in ip_addresses:
+    response = requests.get(f"http://ip-api.com/json/{ip}")
+    data = response.json()
+
+    print(f"IP Address: {ip}")
+    print(f"Country: {data['country']}")
+    print(f"City: {data['city']}")
+    print(f"Country Code: {data['countryCode']}")
+    print(f"Continent: {data['continent']}")
+    print("------------------------")
